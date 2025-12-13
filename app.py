@@ -4,11 +4,13 @@ import torch
 import torch.nn as nn
 import lightning.pytorch as pl
 import joblib
+import matplotlib.pyplot as plt
 
+st.set_page_config(page_title="Drug Release Predictor", layout="wide")
 st.title("Drug Release Predictor")
 
 # -----------------------------
-# Define MLP classes (self-contained)
+# 1. Define MLP classes
 # -----------------------------
 class MLPModel(nn.Module):
     def __init__(self, input_dim, hidden_dim=128, num_layers=2, dropout=0.0):
@@ -23,3 +25,17 @@ class MLPModel(nn.Module):
             in_dim = hidden_dim
         layers.append(nn.Linear(in_dim,1))
         self.net = nn.Sequential(*layers)
+
+class LitMLP(pl.LightningModule):
+    def __init__(self, input_dim, hidden_dim=128, num_layers=2, dropout=0.0, learning_rate=1e-3):
+        super().__init__()
+        self.save_hyperparameters()
+        self.model = MLPModel(input_dim, hidden_dim, num_layers, dropout)
+        self.loss_fn = nn.MSELoss()
+    def forward(self, x):
+        return self.model(x)
+
+# -----------------------------
+# 2. Streamlit app code
+# -----------------------------
+# (paste the Streamlit UI code here: loading scalers, loading checkpoint, tabs, plots, sliders)
