@@ -1,0 +1,7 @@
+torch
+lightning
+scikit-learn
+pandas
+streamlit
+joblib
+openpyxl
