@@ -59,9 +59,9 @@ uploaded_file = st.file_uploader("Upload Excel file (.xlsx)", type="xlsx")
 if uploaded_file:
     df = pd.read_excel(uploaded_file)
     st.success("File uploaded successfully!")
-    
+
     # Check required columns
-    missing_cols = [c for c in FEATURE_COLS if c not in df.columns]
+    missing_cols = [c for c c in FEATURE_COLS if c not in df.columns]
     if missing_cols:
         st.error(f"Missing required columns: {missing_cols}")
     else:
